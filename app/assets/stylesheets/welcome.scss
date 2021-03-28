@@ -7,5 +7,15 @@ body{
   margin-top: 100px;
   color: white;
   font-family: monospace;
-  background: linear-gradient(120deg,#2980b9, #8e44ad);
- }
+  font-size: x-large;
+  background: linear-gradient(270deg, #d06aff, #606cd3, #ff62d0, #5ececa);
+  background-size: 800% 800%;
+
+  animation: AnimationName 30s ease infinite;
+}
+
+@keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}

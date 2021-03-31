@@ -1,0 +1,20 @@
+<%= stylesheet_link_tag "posts" %>
+<%= link_to "HOME", home_path %>
+<br>
+<div style="padding-left: 40%">
+  <h4>New post</h4>
+  <%= form_tag posts_path, method: :post do %>
+  <%= text_field_tag :content %>
+  <%= submit_tag "Post", class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
+<body>
+  <br>
+  <% @posts.each do |post| %>
+  <p>
+    <div style="float: left; width: auto; padding-left: 30%;"> <%= post.content %></div>
+    <%= button_to "X",  post_path(post), method: :delete, form_tag: "myButton" %>
+  </p>
+  <br>
+  <% end %>
+</body>

@@ -10,6 +10,7 @@ Bundler.require(*Rails.groups)
 module Myau
   class Application < Rails::Application
     config.action_controller.always_permitted_parameters = %w( controller action locale utf8 authenticity_token commit )
+    config.assets.initialize_on_precompile = false
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
 

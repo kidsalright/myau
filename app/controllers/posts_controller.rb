@@ -8,11 +8,14 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.sort.reverse
-    @user = current_user
   end
 
   def create
-    post = Post.create(posts_params)
+#    post = Post.create(posts_params)
+    post = Post.new(params[:post])
+    post.user = current_user
+    post.content = params[:content]
+    post.save
     redirect_to posts_path
   end
 
@@ -38,7 +41,7 @@ class PostsController < ApplicationController
   private
 
   def posts_params
-    params.permit(:content)
+    params.require(:post).permit(:content, :user_id)
   end
 
   def find_post

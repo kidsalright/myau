@@ -12,9 +12,11 @@
   <br>
   <% @posts.each do |post| %>
   <p>
+    <h6 style="padding-left: 30%"><%= post.user.email %></h6>
     <div style="float: left; width: auto; padding-left: 30%;">
       <%= post.content %>
       <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>
+        <%= link_to "show", post_path(post) %>
     </div>
     <%= button_to "X",  post_path(post), method: :delete, form_tag: "myButton" %>
   </p>

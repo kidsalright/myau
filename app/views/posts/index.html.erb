@@ -1,4 +1,8 @@
 <%= stylesheet_link_tag "posts" %>
+<%= form_for @user, url: users_path do |form| %>
+  <%= form.file_field :avatar %>
+  <%= form.submit %>
+<% end %>
 <%= link_to "HOME", home_path %>
 <br>
 <div style="padding-left: 40%">
@@ -15,6 +19,11 @@
     <h6 style="padding-left: 30%"><%= post.user.email %></h6>
     <div style="float: left; width: auto; padding-left: 30%;">
       <%= post.content %>
+      <%= form_for posts_path, url: posts_path, html: { multipart: true } do |form| %>
+      <%= form.file_field :picture %>
+      <%= form.submit %>
+      <% end %>
+      <%= image_tag @user.avatar.url, size: '100' %>
       <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>
         <%= link_to "show", post_path(post) %>
     </div>

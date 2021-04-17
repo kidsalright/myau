@@ -12,7 +12,7 @@
 <body>
   <br>
   <% @posts.each do |post| %>
-  <h6 style="padding-left: 30%"><%= post.owner %></h6>
+  <h6 style="padding-left: 30%"><%= post.user.email %></h6>
   <div style="float: left; width: auto; padding-left: 30%;">
     <%= post.content %>
     <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>

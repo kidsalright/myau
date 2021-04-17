@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :find_post, only: %i[show destroy like]
+  before_action :set_post, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[show index]
   skip_before_action :verify_authenticity_token
   include Devise::Controllers::Helpers
@@ -8,17 +8,24 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.sort.reverse
-    @user = current_user
+  end
+
+  def new
+    @post = Post.new
   end
 
   def create
-#    post = Post.create(posts_params)
-    @post = Post.new(params[:post])
-    @post.user = current_user
-    @post.content = params[:content]
-    @post.picture = params[:picture]
-    @post.save
-    redirect_to posts_path
+    @post = current_user.posts.new(post_params)
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to posts_path, notice: "Post was successfully created." }
+        format.json { render posts_path, status: :created }
+      else
+        format.html { render posts_path, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def show
@@ -28,12 +35,22 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    @post.picture = params[:picture]
+    respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_to posts_path, notice: "Post was successfully updated." }
+        format.json { render posts_path, status: :ok }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-    if @post.destroy.destroyed?
-      redirect_to posts_path
+    @post.destroy
+    respond_to do |format|
+      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+      format.json { head :no_content }
     end
   end
 
@@ -43,12 +60,11 @@ class PostsController < ApplicationController
   end
 
   private
+    def set_post
+      @post = Post.find(params[:id])
+    end
 
-  def posts_params
-    params.require(:post).permit(:content, :user_id, :picture)
-  end
-
-  def find_post
-    @post = Post.where(id: params[:id]).first
-  end
+    def post_params
+      params.permit(:content, :user_id, :picture)
+    end
 end

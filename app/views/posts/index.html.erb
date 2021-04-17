@@ -1,34 +1,29 @@
 <%= stylesheet_link_tag "posts" %>
-<%= form_for @user, url: users_path do |form| %>
-  <%= form.file_field :avatar %>
-  <%= form.submit %>
-<% end %>
 <%= link_to "HOME", home_path %>
 <br>
 <div style="padding-left: 40%">
   <h4>New post</h4>
-  <%= form_tag posts_path, method: :post do %>
-  <%= text_field_tag :content %>
+  <%= form_tag posts_path, multipart: true ,method: :post do %>
+  <%= text_area_tag :content %>
+  <%= file_field_tag :picture %>
   <%= submit_tag "Post", class: "btn btn-large btn-primary" %>
   <% end %>
 </div>
 <body>
   <br>
   <% @posts.each do |post| %>
-  <p>
-    <h6 style="padding-left: 30%"><%= post.user.email %></h6>
-    <div style="float: left; width: auto; padding-left: 30%;">
-      <%= post.content %>
-      <%= form_for posts_path, url: posts_path, html: { multipart: true } do |form| %>
-      <%= form.file_field :picture %>
-      <%= form.submit %>
-      <% end %>
-      <%= image_tag @user.avatar.url, size: '100' %>
-      <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>
-        <%= link_to "show", post_path(post) %>
-    </div>
+  <h6 style="padding-left: 30%"><%= post.user.email %></h6>
+  <div style="float: left; width: auto; padding-left: 30%;">
+    <%= post.content %>
+    <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>
+  </div>
+  <% if post.user == current_user %>
     <%= button_to "X",  post_path(post), method: :delete, form_tag: "myButton" %>
-  </p>
+  <% end %>
+  <% if post.picture.exists? %>
+    <br>
+    <div style="padding-left: 40%"><%= image_tag post.picture.url(:medium) %></div>
+  <% end %>
   <br>
   <% end %>
 </body>

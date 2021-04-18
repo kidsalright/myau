@@ -16,14 +16,10 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to posts_path, notice: "Post was successfully created." }
-        format.json { render posts_path, status: :created }
-      else
-        format.html { render posts_path, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      redirect_to posts_path
+    else
+      puts "gj u broke it"
     end
   end
 
@@ -34,23 +30,15 @@ class PostsController < ApplicationController
   def edit; end
 
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to posts_path, notice: "Post was successfully updated." }
-        format.json { render posts_path, status: :ok }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      puts ")))"
     end
   end
 
   def destroy
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
-    end
   end
 
   def like

@@ -1,0 +1,31 @@
+<%= image_tag @user.avatar.url(:thumb) %>
+<%= @user.email %>
+  <% if @user == current_user %>
+    <%= form_for current_user, html: { multipart: true } do |form| %>
+    <%= form.file_field :avatar %>
+    <%= form.submit %>
+  <% end %>
+<% end %>
+<br>
+
+<body>
+  <br>
+  <% @user.posts.each do |post| %>
+  <h6 style="padding-left: 30%"> <%= @user.email %> </h6>
+  <br>
+  <div style="float: left; width: auto; padding-left: 30%;">
+    <%= post.content %>
+    <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>
+  </div>
+  <% if post.user == current_user %>
+  <%= button_to "X",  post_path(post), method: :delete, form_tag: "myButton" %>
+  <% end %>
+  <% if post.picture.exists? %>
+  <br>
+  <div style="padding-left: 40%"><%= image_tag post.picture.url(:medium) %></div>
+  <% end %>
+  <% end %>
+  <br>
+</body>
+
+<%= link_to 'Back', posts_path, class: "btn btn-dark" %>

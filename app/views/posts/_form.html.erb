@@ -1,0 +1,7 @@
+<%= form_with(model: post , multipart: true ) do |form| %>
+  <div class="field", style="padding-left: 40%">
+    <%= form.text_area :content %>
+    <%= form.file_field :picture %>
+    <%= form.submit "Post", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>

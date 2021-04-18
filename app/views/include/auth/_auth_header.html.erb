@@ -1,8 +1,8 @@
+<div style="position: absolute; right: 10%; top: 2%">
 <% if user_signed_in? %>
-<a href="#" class="btn btn-dark">
-  <%= link_to 'logout', destroy_user_session_path, method: :delete, class: "btn btn-dark" %>
-  <%= link_to 'edit', edit_user_registration_path, class: "btn btn-dark" %>
-  <% else %>
-  <%= link_to 'login', new_user_session_path, class: "btn btn-dark" %>
-  <%= link_to 'signup', new_user_registration_path, class: "btn btn-dark" %>
-  <% end %>
+<%= link_to 'logout', destroy_user_session_path, method: :delete, class: "btn btn-dark" %>
+<% else %>
+<%= link_to 'login', new_user_session_path, class: "btn btn-dark" %>
+<%= link_to 'signup', new_user_registration_path, class: "btn btn-dark" %>
+<% end %>
+</div>

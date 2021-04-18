@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'welcome#index', as: 'home'
   resources :users
+  resources :user
   resources :posts do
     get :like, on: :member
   end

@@ -15,7 +15,7 @@
     <%= link_to "HOME", home_path, class: "homebutton" %>
   <% end %>
   <% if current_page?(posts_path) || current_page?(users_path) %>
-    <%= link_to image_tag("logo1",  class: "logo"), posts_path %>
+    <%= link_to image_tag("logo1.gif",  class: "logo"), posts_path %>
   <% end %>
   <%= render 'include/auth/auth_header' %>
   <%= yield %>

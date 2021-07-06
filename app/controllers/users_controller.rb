@@ -9,6 +9,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
+    @user.avatar = image_tag("unnamed")
   end
 
   def update

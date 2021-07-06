@@ -1,7 +1,13 @@
 <%= stylesheet_link_tag "welcome" %>
 
 <body>
-  <h1>Welcome</h1>
+  <%= image_tag("unnamed.jpg", class: "avatar") %>
+  <h1>Maksim Bokov</h1>
+  <h4>Personal website</h4>
+  <br>
+  <p>link link link <%= link_to "CV", asset_path("sample.pdf"), :target => "_blank" %></p>
+  <br>
+  <br>
   <div>Ok so, im lookin' for a job and this is my little CV</div>
   <div>to show what can i do via Ruby on Rails</div>
   <div>(but i can switch and adapt to any stack of technologies</div>
@@ -11,12 +17,7 @@
   <div>There u can find C code from 42.fr(really cool international coding school)</div>
   <div> and some Ruby code for practicing OOP</div>
   <div>And also my Ruby on Rails apps, which are presented below</div>
-  <div>Notice, they r all in this one app, cause i have no money to host it separately</div>
   <br>
   <br>
-  <br>
-  <a href="">Webcam chat</a>
-  <a href="">To-do list</a>
   <a href="posts">Blog</a>
-  <a href="">Etc</a>
 </body>

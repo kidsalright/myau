@@ -1,30 +1,7 @@
 <%= stylesheet_link_tag "posts" %>
-<%= link_to "HOME", home_path %>
+
 <%= link_to "my profile", user_path(current_user) %>
 <br>
 
 <%= render 'form', post: @post %>
-
-<body>
-  <br>
-  <% @posts.each do |post| %>
-  <% if post.user.avatar.exists? %>
-  <div style="transform: scale(0.6);padding-left: 20%"><%= image_tag post.user.avatar.url(:thumb) %></div>
-  <% end %>
-  <h6 style="padding-left: 30%"><%= link_to "#{post.user.email}", user_path(post.user) %></h6>
-  <br>
-  <div style="float: left; width: auto; padding-left: 40%;">
-    <%= post.content %>
-    <%= post.likes_count %><%= link_to '♡', like_post_path(post) %>
-  </div>
-  <% if post.user == current_user %>
-    <%= button_to "X",  post_path(post), method: :delete, form_tag: "myButton" %>
-  <% end %>
-  <br>
-  <% if post.picture.exists? %>
-    <div style="padding-left: 40%"><%= image_tag post.picture.url(:medium) %></div>
-  <% end %>
-  <br>
-  <br>
-  <% end %>
-</body>
+<%= render 'listing', posts: @posts %>
